@@ -34,65 +34,66 @@ def arabicToRomanNumber(arabicNumber):
 
     romanNumber = ""
 
+    if arabicNumber == 0:
+        romanNumber = ""
+        return romanNumber
+
     for arabicKey, romanValue in arabicToRomanNumberEquivalence.items():
         if arabicNumber == arabicKey:
             romanNumber = romanValue
-            print(romanNumber)
+            return romanNumber
             break
         elif arabicNumber > arabicKey:
             if romanValue == "I" or romanValue == "X" or romanValue == "C" or romanValue == "M":
                 if arabicKey * 2 == arabicNumber:
                     romanNumber = romanValue + romanValue
-                    print(romanNumber)
+                    return romanNumber
                     break
                 elif arabicKey * 3 == arabicNumber:
                     romanNumber = romanValue + romanValue + romanValue
-                    print(romanNumber)
+                    return romanNumber
                     break
                 else:
                     romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey * 5]
-                    print(romanNumber)
+                    return romanNumber
                     break
             else:
                 if arabicKey + 1 * arabicKey/5 == arabicNumber:
-                    romanNumber = romanValue
-                    + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    print(romanNumber)
+                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5]
+                    return romanNumber
                     break                    
                 elif arabicKey + 2 * arabicKey/5 == arabicNumber:
                     romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    print(romanNumber)
+                    return romanNumber
                     break
                 elif arabicKey + 3 * arabicKey/5 == arabicNumber:
                     romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    print(romanNumber)
+                    return romanNumber
                     break
                 else:
                     romanNumber = arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey * 2]
-                    print(romanNumber)
+                    return romanNumber
                     break
 
-'''
 # Ask for number
-arabicNumber = askCorrectNumber("Write the number you want to transform: ")
+number = askCorrectNumber("Write the number you want to transform: ")
 
-# Transform number given into a list
-digits = list(arabicNumber)
+# Transform given number into a list
+digits = list(number)
 
 # Add the number of zeros required depending if is units, tens, hundreds or thousands
 for position in range(len(digits)):
     zerosToAdd = len(digits[position:])
     digits[position] = digits[position].ljust(zerosToAdd, "0")
-'''
-arabicToRomanNumber(2000)
-arabicToRomanNumber(700)
-arabicToRomanNumber(100)
-arabicToRomanNumber(30)
-arabicToRomanNumber(9)
-arabicToRomanNumber(4)
 
+# Convert each unit of the given number into a roman numeral with the function arabicToRomanNumber
+# Creates a string that concatenates the tranformation to roman of each unit
+romanNumber = ""
 
+for digit in digits:
+    arabicNumber = int(digit)
+    romanNumber = romanNumber + arabicToRomanNumber(arabicNumber)
 
-
+print(romanNumber)
 
 
