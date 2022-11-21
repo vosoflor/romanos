@@ -13,53 +13,86 @@ e)-3 ->RomanNumberError("el valor debe ser mayor de cero")
 f)4.5 -> RomanNumberError("Debe ser un entero")
 '''
 
-class RomanNumberError(Exception):
-    pass
+# Function to ask the user to enter a valid number
+def askCorrectNumber(message):
+    number = 0
+    while number == 0:
+        try:
+            value = input(message)
+            number = int(value)
+        except ValueError:
+            number = 0
+        if number > 0 and number < 4000:
+            return value
+        else:
+            print ('The given value is not valid, it should be a positive integer number, you need to try again.')
+            number = 0
 
-diccionario = {
-    'M':1000,
-    'D':500,
-    'C':100,
-    'L':50,
-    'X':10,
-    'V':5,
-    'I':1
-}
+def arabicToRomanNumber(arabicNumber):
+    # Dictionary variable to include the equivalence between arabic and roman numbers
+    arabicToRomanNumberEquivalence = { 1000:'M', 500:'D', 100:'C', 50:'L', 10:'X', 5:'V', 1:'I'}
 
-for c,v in diccionario.items():
-    print(c + "-" + str(v))
+    romanNumber = ""
 
-unidades= {
-    'I':1,'II':2,'III':3,
-    'IV':4,'V':5,'VI':6,
-    'VII':7,'VIII':8,'IX':9
-}
+    for arabicKey, romanValue in arabicToRomanNumberEquivalence.items():
+        if arabicNumber == arabicKey:
+            romanNumber = romanValue
+            print(romanNumber)
+            break
+        elif arabicNumber > arabicKey:
+            if romanValue == "I" or romanValue == "X" or romanValue == "C" or romanValue == "M":
+                if arabicKey * 2 == arabicNumber:
+                    romanNumber = romanValue + romanValue
+                    print(romanNumber)
+                    break
+                elif arabicKey * 3 == arabicNumber:
+                    romanNumber = romanValue + romanValue + romanValue
+                    print(romanNumber)
+                    break
+                else:
+                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey * 5]
+                    print(romanNumber)
+                    break
+            else:
+                if arabicKey + 1 * arabicKey/5 == arabicNumber:
+                    romanNumber = romanValue
+                    + arabicToRomanNumberEquivalence[arabicKey / 5]
+                    print(romanNumber)
+                    break                    
+                elif arabicKey + 2 * arabicKey/5 == arabicNumber:
+                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
+                    print(romanNumber)
+                    break
+                elif arabicKey + 3 * arabicKey/5 == arabicNumber:
+                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
+                    print(romanNumber)
+                    break
+                else:
+                    romanNumber = arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey * 2]
+                    print(romanNumber)
+                    break
 
-decenas= {
-    'X':10,'XX':20,'XXX':30,
-    'XL':40,'L':50,'LX':60,
-    'LXX':70,'LXXX':80,'XC':90
-}
+'''
+# Ask for number
+arabicNumber = askCorrectNumber("Write the number you want to transform: ")
 
-centenas= {
-    'C':100,'CC':200,'CCC':300,
-    'CD':400,'D':500,'DC':600,
-    'DCC':700,'DCCC':800,'CM':900
-}
-unidades= {
-    'I':1,'II':2,'III':3,
-    'IV':4,'V':5,'VI':6,
-    'VII':7,'VIII':8,'IX':9
-}
+# Transform number given into a list
+digits = list(arabicNumber)
 
-decenas= {
-    'X':10,'XX':20,'XXX':30,
-    'XL':40,'L':50,'LX':60,
-    'LXX':70,'LXXX':80,'XC':90
-}
+# Add the number of zeros required depending if is units, tens, hundreds or thousands
+for position in range(len(digits)):
+    zerosToAdd = len(digits[position:])
+    digits[position] = digits[position].ljust(zerosToAdd, "0")
+'''
+arabicToRomanNumber(2000)
+arabicToRomanNumber(700)
+arabicToRomanNumber(100)
+arabicToRomanNumber(30)
+arabicToRomanNumber(9)
+arabicToRomanNumber(4)
 
-centenas= {
-    'C':100,'CC':200,'CCC':300,
-    'CD':400,'D':500,'DC':600,
-    'DCC':700,'DCCC':800,'CM':900
-}
+
+
+
+
+
