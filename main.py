@@ -1,19 +1,4 @@
-'''
-1-Crear una funcion que pase de entero > 0 y < 4000 a romano
-
-2-Cualquier otra entrada debe dar error
-
-Casos de prueba
-
-a) 1994 -> MCMXCIV
-b) 4000->RomanNumberError("el valor debe ser menor de 4000")
-c)"unacadena" -> RomanNumberErro("debe ser un entero")
-d)0-> RomanNumberError("el valor debe ser mayor a cero")
-e)-3 ->RomanNumberError("el valor debe ser mayor de cero")
-f)4.5 -> RomanNumberError("Debe ser un entero")
-'''
-
-# Function to ask the user to enter a valid number
+# Function to ask the user to enter a valid number between 1 inclusive and 4000 exclusive
 def askCorrectNumber(message):
     number = 0
     while number == 0:
@@ -28,6 +13,7 @@ def askCorrectNumber(message):
             print ('The given value is not valid, it should be a positive integer number, you need to try again.')
             number = 0
 
+# Function to transform a given arabicNumber to roman numeral
 def arabicToRomanNumber(arabicNumber):
     # Dictionary variable to include the equivalence between arabic and roman numbers
     arabicToRomanNumberEquivalence = { 1000:'M', 500:'D', 100:'C', 50:'L', 10:'X', 5:'V', 1:'I'}
