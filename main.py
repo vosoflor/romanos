@@ -31,35 +31,23 @@ def arabicToRomanNumber(arabicNumber):
             break
         elif arabicNumber > arabicKey:
             if romanValue == "I" or romanValue == "X" or romanValue == "C" or romanValue == "M":
-                if arabicKey * 2 == arabicNumber:
-                    romanNumber = romanValue + romanValue
-                    return romanNumber
-                    break
-                elif arabicKey * 3 == arabicNumber:
-                    romanNumber = romanValue + romanValue + romanValue
-                    return romanNumber
-                    break
-                else:
-                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey * 5]
-                    return romanNumber
-                    break
+                for i in range(2,4):
+                    if arabicKey * i == arabicNumber:
+                        romanNumber = i * romanValue
+                        return romanNumber
+                        break
+                romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey * 5]
+                return romanNumber
+                break
             else:
-                if arabicKey + 1 * arabicKey/5 == arabicNumber:
-                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    return romanNumber
-                    break                    
-                elif arabicKey + 2 * arabicKey/5 == arabicNumber:
-                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    return romanNumber
-                    break
-                elif arabicKey + 3 * arabicKey/5 == arabicNumber:
-                    romanNumber = romanValue + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey / 5]
-                    return romanNumber
-                    break
-                else:
-                    romanNumber = arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey * 2]
-                    return romanNumber
-                    break
+                for i in range(1,4):
+                    if arabicKey + i * arabicKey / 5 == arabicNumber:
+                        romanNumber = romanValue + i * arabicToRomanNumberEquivalence[arabicKey / 5]
+                        return romanNumber
+                        break
+                romanNumber = arabicToRomanNumberEquivalence[arabicKey / 5] + arabicToRomanNumberEquivalence[arabicKey * 2]
+                return romanNumber
+                break                
 
 # Ask for number
 number = askCorrectNumber("Write the number you want to transform: ")
@@ -81,5 +69,3 @@ for digit in digits:
     romanNumber = romanNumber + arabicToRomanNumber(arabicNumber)
 
 print(romanNumber)
-
-
